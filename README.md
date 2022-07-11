@@ -45,8 +45,9 @@ Nuestro proyecto tiene una migración para ejecutarla y si la base de datos ha s
 
 Por último lanzaremos nuestra app web con:
 
-`php artisan serve`<br>
-`php artisan up`
+`php artisan up`<br>
+`php artisan serve`
+
 
 Si todo ha ido correctamente se tendría que ver una pantalla como la siguiente:
 
