@@ -8,13 +8,13 @@
 
 @section('menu-content')
     <div class="col">
-        <button type="submit" class="btn btn-light buttonMenu" onclick="submitform(); return false;">Save</button>
-        <a href="{{route('index')}}"><button class="btn btn-light buttonMenu">Cancel</button></a>
+        <button type="button" class="btn btn-light buttonMenu" data-bs-toggle="modal" data-bs-target="#modalSave">Save</button>
+        <a href="{{route('index')}}"><button type="button" class="btn btn-light buttonMenu">Cancel</button></a>
     </div>
 @endsection
 
 @section('content')
-    <form action="{{route('store')}}" method="POST" id="create-form">
+    <form action="{{route('store')}}" method="POST">
         @csrf
         <div class="row mb-3">
             <label for="language" class="col-2 col-form-label form1">Language</label>
@@ -29,13 +29,19 @@
         <div class="row mb-3">
             <label for="title" class="col-sm-2 col-form-label form1">Title</label>
             <div class="col-sm-5">
-                <input type="text" class="form-control form2" id="title" name="title">
+                <input type="text" class="form-control form2" id="title" name="title" required>
             </div>
         </div>
         <div class="row mb-3">
             <label for="serieName" class="col-sm-2 col-form-label form1">Serie name</label>
             <div class="col-sm-5">
                 <input type="text" class="form-control form2" id="serieName" name="serieName">
+            </div>
+        </div>
+        <div class="row mb-3">
+            <label for="artist" class="col-sm-2 col-form-label form1">Artist</label>
+            <div class="col-sm-5">
+                <input type="text" class="form-control form2" id="artist" name="artist" required>
             </div>
         </div>
         <div class="row mb-3">
@@ -47,11 +53,11 @@
         <div class="row mb-3">
             <label for="invID" class="col-sm-2 col-form-label form1">Inventory ID</label>
             <div class="col-sm-5">
-                <input type="text" class="form-control form2" id="invID" name="invID">
+                <input type="text" class="form-control form2" id="invID" name="invID" value="ITG-" required>
             </div>
         </div>
         <div class="row mb-3">
-            <label for="status" class="col-2 col-form-label form1">Status</label>
+            <label for="status" class="col-2 col-form-label form1">Status</label required>
             <div class="col-5">
             <select class="form-select form2" name="status" id="status">
                 <option value="reserved" selected>Reserved</option>
@@ -60,7 +66,7 @@
             </div>
         </div>
         <div class="row mb-3">
-            <label for="availability" class="col-2 col-form-label form1">Availability</label>
+            <label for="availability" class="col-2 col-form-label form1">Availability</label required>
             <div class="col-5">
             <select class="form-select form2" name="availability" id="availability">
                 <option value="1" selected>Available</option>
@@ -103,9 +109,9 @@
             <label for="dimensions" class="col-2 col-form-label form1"></label>
             <div class="col-5">
                 <div class="row">
-                    <div class="col-3"><input type="number" class="form-control form2" id="height" name="height"></div>
-                    <div class="col-3"><input type="number" class="form-control form2" id="width" name="width"></div>
-                    <div class="col-3"><input type="number" class="form-control form2" id="depth" name="depth"></div>
+                    <div class="col-3"><input type="number" class="form-control form2" id="height" name="height" required></div>
+                    <div class="col-3"><input type="number" class="form-control form2" id="width" name="width" required></div>
+                    <div class="col-3"><input type="number" class="form-control form2" id="depth" name="depth" required></div>
                     <div class="col-3">
                         <select class="form-select form2" name="formatD" id="formatD">
                             <option value="english" selected>cm</option>
@@ -128,11 +134,29 @@
                 </div>
             </div>
         </div>
+        <div class="row">
+            <div class="col">
+                <button type="button" class="btn buttonProject" data-bs-toggle="modal" data-bs-target="#modalSave">Save</button>
+                <a href="{{route('index')}}"><button type="button" class="btn buttonProject">Cancel</button></a>
+            </div>
+        </div>
+        <!-- Modal confirmation save -->
+        <div class="modal fade" id="modalSave" tabindex="-1" aria-labelledby="modalSaveLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content modalProject">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalSaveLabel"></h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Are you sure you want to create this artwork?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn buttonProject" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn buttonProject">Create artwork</button>
+                    </div>
+                </div>
+            </div>
+        </div>
       </form>
-      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-      <script>
-        function submitform(){
-            document.getElementById('create-form').submit();
-        }
-      </script>
 @endsection

@@ -1,64 +1,60 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+<p align="center"><img src="https://static.arteinformado.com/resources/app/docs/organizacion/6/119206/f.itg_new_logo.png" width="350"></p>
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+# Descripción
 
-## About Laravel
+Esta es una prueba LAMP para la empresa ITGallery, consiste en el desarrollo de una pequeña API para obtener los datos de la obra (GET) y editarlos (PUT). La API se ha desarrollado bajo el framework de Laravel. Ahora presentaremos los requisitos y los pasos a seguir para la intalación y el uso de esta.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+# Requisitos
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+Los requisitos para la instalación de la API, ya que se requiere un entorno LAMP, serían los siguientes:
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+-   Servidor Apache o NGINX
+-   PHP 8 o superior
+-   MYSQL
+-   Composer instalado
 
-## Learning Laravel
+Para tener los 3 primeros requisitos se puede tener instalado con Docker o paquetes como XAMPP.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+# Instalación
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+Para empezar la instalación tendremos que realizar la clonación del repositorio con
 
-## Laravel Sponsors
+`git clone https://github.com/raulfdeztdo/ITGallery.git`
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+Creando la carpeta del repositorio en nuestro directorio htdocs o en el directorio donde vayamos a ejecutar nuestra app web.
 
-### Premium Partners
+Una vez hayamos clonado el repositorio con el terminal iremos al directorio de la aplicación y ejecutaremos el composer para cargar las dependencias del proyecto
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+`composer install`
 
-## Contributing
+Ahora estando en el mismo directorio copiaremos el archivo .env.example y a .env y en caso de que exista lo reemplazaremos, en este fichero tenemos la configuración de Laravel y entre ella la configuración de la base de datos, la cual deberemos poner la nuestra en las siguientes variables:
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+`DB_HOST=localhost`<br>
+`DB_DATABASE=base_de_datos`<br>
+`DB_USERNAME=user`<br>
+`DB_PASSWORD=password`<br>
 
-## Code of Conduct
+Continuaremos creando una API Key, cada proyecto de Laravel tiene una única API Key que generaremos ejecutando el siguiente comando en la terminal:
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+`php artisan key:generate`
 
-## Security Vulnerabilities
+Nuestro proyecto tiene una migración para ejecutarla y si la base de datos ha sido configurada correctamente se migrará y se generará la tabla predefinida con los siguientes comandos:
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+`php artisan migrate --seed`<br>
+`php artisan migrate:fresh --seed`
 
-## License
+Por último lanzaremos nuestra app web con:
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+`php artisan serve`<br>
+`php artisan up`
+
+Si todo ha ido correctamente se tendría que ver una pantalla como la siguiente:
+
+<p align="center"><img src="https://i.ibb.co/Jjy2tbr/Captura-de-Pantalla-2022-07-12-a-las-0-05-56.png" width="700"></p>
+
+
+*Se ha intentado seguir la plantilla y hacerse lo más exacto posible, no se ha tenido en cuenta una versión móvil debido al poco tiempo invertido en la prueba*
+
+*Se ha utilizado framework Laravel 9*
+
+*Aunque no se pedía se ha realizado los menus laterales y superiores para que quede más completa*

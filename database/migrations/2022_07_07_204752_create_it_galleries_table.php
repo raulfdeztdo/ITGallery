@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('nombreObra',30);
             $table->string('nombreArtista',30);
             $table->string('foto',100)->nullable();
-            $table->integer('anio');
+            $table->integer('anio')->nullable();
             $table->string('nInventario', 12);
             $table->integer('alto');
             $table->integer('ancho');

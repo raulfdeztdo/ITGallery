@@ -85,7 +85,16 @@ body {
     border-top: 0px !important;
 }
 
+.buttonProject {
+    border-radius: 0 !important;
+    border: 2px solid #111 !important;
+}
+
 .buttonMenu:hover {
+    background-color: orange !important;
+}
+
+.buttonProject:hover {
     background-color: orange !important;
 }
 
@@ -122,4 +131,8 @@ body {
     width: 40px !important;
     height: 24px !important;
  }
-/* Utilities */
+
+ .modalProject {
+    border-radius: 0px !important;
+    border: 1px solid black !important;
+ }

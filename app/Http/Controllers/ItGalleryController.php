@@ -16,6 +16,7 @@ class ItGalleryController extends Controller
     {
         $viewVar["title"] = "Home";
         $viewVar["obras"] = ItGallery::all();
+
         return \view("inicio", $viewVar);
     }
 
@@ -37,17 +38,72 @@ class ItGalleryController extends Controller
      */
     public function store(Request $request)
     {
-        return $request;
-
         $obra = new ItGallery();
-        $obra->nombreObra = $request->nombreObra;
-        $obra->nombreArtista = $request->nombreArtista;
-        $obra->foto = $request->foto;
-        $obra->anio = $request->anio;
-        $obra->nInventario = $request->nInventario;
-        $obra->alto = $request->alto;
-        $obra->ancho = $request->ancho;
-        $obra->profundidad = $request->profundidad;
+        $obra->nombreObra = $request->title;
+        $obra->nombreArtista = $request->artist;
+        // $obra->foto = $request->foto;
+        $obra->anio = $request->year;
+        $obra->nInventario = (!is_null($request->invID)) ? "ITG-".$request->invID : "ITG-NULL";
+        $obra->alto = $request->height;
+        $obra->ancho = $request->width;
+        $obra->profundidad = $request->depth;
+
+        $obra->save();
+
+        return redirect()->route('show', $obra->id);
+    }
+
+
+    /**
+     * It takes an integer as a parameter, finds the artwork with that ID in the database, and returns
+     * a view with the artwork's information
+     *
+     * @param int id The id of the artwork to be shown.
+     *
+     * @return The view "artwork" with the variable
+     */
+    public function show(int $id)
+    {
+        $viewVar["art"] = ItGallery::findOrFail($id);
+        $viewVar["title"] = $viewVar["art"]->nombreObra;
+        return \view("artwork", $viewVar);
+    }
+
+    /**
+     * Receive id and return data of this artwork for update its data
+     *
+     * @param int id The id of the record to be edited.
+     *
+     * @return The view "edit" with the variable
+     */
+    public function edit(int $id)
+    {
+        $viewVar["art"] = ItGallery::findOrFail($id);
+        $viewVar["title"] = $viewVar["art"]->nombreObra;
+        return \view("edit", $viewVar);
+    }
+
+    /**
+     * It takes a request, finds the obra with the id in the request, and then updates the obra with
+     * the data in the request
+     *
+     * @param Request request The request object.
+     * @param ItGallery obra The model instance that you are updating.
+     *
+     * @return The updated object.
+     */
+    public function update(Request $request)
+    {
+        $obra = ItGallery::findOrFail($request->id);
+
+        $obra->nombreObra = $request->title;
+        $obra->nombreArtista = $request->artist;
+        // $obra->foto = $request->foto;
+        $obra->anio = $request->year;
+        $obra->nInventario = $request->invID;
+        $obra->alto = $request->height;
+        $obra->ancho = $request->width;
+        $obra->profundidad = $request->depth;
 
         $obra->save();
 
@@ -55,63 +111,13 @@ class ItGalleryController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * It deletes the record with the id passed as a parameter
      *
-     * @param  \App\Models\ItGallery  $itGallery
-     * @return \Illuminate\Http\Response
+     * @param int id The id of the resource to be deleted.
      */
-    public function show(ItGallery $itGallery)
+    public function delete(int $id)
     {
-        $obra = ItGallery::findOrFail($request->id);
-        return $obra;
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\ItGallery  $itGallery
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(ItGallery $itGallery)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\ItGallery  $itGallery
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, ItGallery $obra)
-    {
-        $obra = ItGallery::findOrFail($request->id);
-
-        $obra = new ItGallery();
-        $obra->nombreObra = $request->nombreObra;
-        $obra->nombreArtista = $request->nombreArtista;
-        $obra->foto = $request->foto;
-        $obra->anio = $request->anio;
-        $obra->nInventario = $request->nInventario;
-        $obra->alto = $request->alto;
-        $obra->ancho = $request->ancho;
-        $obra->profundidad = $request->profundidad;
-
-        $obra->save();
-
-        return $obra;
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\ItGallery  $itGallery
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(ItGallery $itGallery)
-    {
-        $obra = ItGallery::destroy($itGallery->id);
-        return $obra;
+        $obra = ItGallery::destroy($id);
+        return redirect()->route('index');
     }
 }
